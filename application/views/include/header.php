@@ -115,7 +115,15 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <a href="get_all_users" data-target="#manage_user_option"  class="btn btn-success" style="height: 100px; width: 300px;">
-                            <h1> View All User  </h1>
+                            <h1> View All User </h1>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="get_all_admin" data-target="#manage_user_option"  class="btn btn-danger" style="height: 100px; width: 300px;">
+                            <h1> View All Admin </h1>
                         </a>
                     </div>
                 </div>
@@ -186,3 +194,34 @@
         </div>
     </div>
 </div>
+
+
+<!-- generic confirm -->
+
+<div class="modal fade" id="generic_confirm" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-vertical-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-center" >
+                    <b>
+                        <div id="confirm_message_id">
+                        </div>
+                    </b>
+                </h2>
+
+                <div class="text-center">
+                    <button id="confirm_yes" class="btn btn-lg btn-success text-center" data-dismiss="modal">Yes</button>
+                    <button class="btn btn-lg btn-danger text-center" data-dismiss="modal">No</button>
+                </div>
+
+            </div>
+
+            <div class="modal-footer text-center">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--generic confirm -->

@@ -39,6 +39,24 @@
 
  });
 
+$(function() {
+    function reposition() {
+        var modal = $(this),
+            dialog = modal.find('.modal-dialog');
+        modal.css('display', 'block');
+
+        // Dividing by two centers the modal exactly, but dividing by three
+        // or four works better for larger screens.
+        dialog.css("margin-top", Math.max(0, ($(window).height() - dialog.height()) / 4));
+    }
+    // Reposition when a modal is shown
+    $('.modal').on('show.bs.modal', reposition);
+    // Reposition when the window is resized
+    $(window).on('resize', function() {
+        $('.modal:visible').each(reposition);
+    });
+});
+
 
 function createUser(){
     var ctr=0;
@@ -72,6 +90,16 @@ function createUser(){
 function showPopUp(message){
     $('#message_id').text(message);
     $('#generic_message').modal('toggle');
+}
+
+function showConfirmPopUp(message,id){
+    $('#confirm_message_id').text(message);
+    $('#generic_confirm').modal('toggle');
+    $('#confirm_yes').attr('onclick', "triggerClick('"+id+"')");
+}
+
+function triggerClick(id){
+    document.getElementById(id).click();
 }
 
 function showUserOption(){
@@ -262,6 +290,12 @@ function selectAll(){
     $('.checkBoxTransction').prop('checked', $('#selectAll').is(':checked'));
 }
 
+function showConfirmPopUpAll(message,methodCall){
+    $('#confirm_message_id').text(message);
+    $('#generic_confirm').modal('toggle');
+    $('#confirm_yes').attr('onclick', methodCall);
+}
+
 function deleteAll(){
     var ids = [];
     $('.checkBoxTransction').each(function(){
@@ -283,4 +317,55 @@ function deleteAll(){
     }else{
         showPopUp("None Selected");
     }
+}
+
+function deleteAllQR(){
+    var ids = [];
+    $('.checkBoxTransction').each(function(){
+        if($(this).is(':checked')){
+            ids.push(this.value);
+        }
+    })
+    if(ids.length > 0){
+        var form = [{name:"ids", value:JSON.stringify(ids)}];
+        var url = window.location.origin+"/index.php/main/";
+        $.ajax({
+            type: 'POST',
+            url: url + 'deleteQR/',
+            data: form,
+            success: function(o) {
+                location.replace(url+"manage_qr_code");
+            }
+        });
+    }else{
+        showPopUp("None Selected");
+    }
+}
+
+function deleteAllUser(){
+    var ids = [];
+    $('.checkBoxTransction').each(function(){
+        if($(this).is(':checked')){
+            ids.push(this.value);
+        }
+    })
+    if(ids.length > 0){
+        var form = [{name:"ids", value:JSON.stringify(ids)}];
+        var url = window.location.origin+"/index.php/main/";
+        $.ajax({
+            type: 'POST',
+            url: url + 'deleteAllUser/',
+            data: form,
+            success: function(o) {
+                location.replace(url+"get_all_users");
+            }
+        });
+    }else{
+        showPopUp("None Selected");
+    }
+}
+
+function showPassword(id,o){
+    $(o).hide();
+    $('#'+id).show();
 }

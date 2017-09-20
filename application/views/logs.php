@@ -29,8 +29,16 @@
                 <th>Full Name</th>
                 <th>Date</th>
                 <?php if($type == "transactions"): ?>
-                    <th class="remove text-center">Action</th>
-                    <th class="remove text-center">Select All <input type="checkbox" id="selectAll" onclick="selectAll()"></th>
+                    <th class="remove">
+                        <div class="row">
+                            <div class="col-lg-6 text-right">
+                                Action
+                            </div>
+                            <div class="col-lg-6 text-left">
+                                <input type="checkbox" id="selectAll" onclick="selectAll()">
+                            </div>
+                        </div>
+                    </th>
                 <?php endif; ?>
             </tr>
         </thead>
@@ -51,15 +59,21 @@
         </td>
         <?php if($type == "transactions"): ?>
             <td class="remove text-center">
-                <a href='<?php echo base_url()."index.php/main/deleteLog/".$log->id?>'
-                    class="btn btn-danger navbar-btn"
-                >
-                    <span class="glyphicon glyphicon-trash"></span> Delete
-                </a>
+                <div class="row">
+                    <div class="col-lg-6 text-right">
+                            <button type="button" class="btn btn-danger navbar-btn btn-sm" onclick="showConfirmPopUp('Delete Selected Log?','log_<?php echo $log->id?>')" >
+                                <span class="glyphicon glyphicon-trash"></span> Delete </button>
+
+                        <a style="display: none;" href='<?php echo base_url()."index.php/main/deleteLog/".$log->id?>'
+                                class="btn btn-danger navbar-btn" id="log_<?php echo $log->id?>">
+                                <span class="glyphicon glyphicon-trash"></span> Delete
+                            </a>
+                    </div>
+                    <div class="col-lg-6 text-left">
+                            <input type="checkbox" class="checkBoxTransction" value="<?php echo $log->id;?>">
+                    </div>
             </td>
-            <td class="remove text-center">
-                <input type="checkbox" class="checkBoxTransction" value="<?php echo $log->id;?>">
-            </td>
+
         <?php endif; ?>
     </tr>
     <?php  }?>
@@ -79,7 +93,7 @@
         </div>
         <?php if($type == "transactions"): ?>
             <div class="col-lg-4 text-right">
-                <button type="button" class="btn btn-danger navbar-btn" onclick="deleteAll();">
+                <button type="button" class="btn btn-danger navbar-btn" onclick="showConfirmPopUpAll('Delete Selected Logs?','deleteAll()');">
                     <span class="glyphicon glyphicon-trash"></span> Delete Selected
                 </button>
             </div>

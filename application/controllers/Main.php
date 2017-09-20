@@ -72,10 +72,27 @@ class Main extends CI_Controller {
 		$result=$query->result();
 		
 		$data['users']=$result;
+        $data['admin']=false;
 		$this->load->view('users', $data);
 		
 		
 	}
+
+    public function get_all_admin(){
+
+        $query=" SELECT agent.*,borrowed.not_clear FROM agent ";
+        $query.=" left join (select agent_id,count(borrowed.agent_id) > 0 as not_clear from borrowed group by borrowed.agent_id) as borrowed on agent.id_agent = borrowed.agent_id ";
+        $query.=" WHERE admin = 1 and deleted = 0 order by full_name ASC ";
+
+        $query=$this->db->query($query);
+        $result=$query->result();
+
+        $data['users']=$result;
+        $data['admin']=true;
+        $this->load->view('users', $data);
+
+
+    }
 	
 	
 	public function logout(){
@@ -297,6 +314,41 @@ class Main extends CI_Controller {
             }
         }
 
+    }
+
+    public function deleteQR(){
+        if(isset($_POST['ids'])){
+            $ids = json_decode($_POST['ids']);
+            foreach ($ids as $id){
+                $query="delete from qr_codes where id_qr_codes = ".$id;
+                $this->db->query($query);
+
+                $this->manage_qr_code();
+            }
+        }
+    }
+
+    public function deleteAllUser(){
+        if(isset($_POST['ids'])){
+            $ids = json_decode($_POST['ids']);
+            foreach ($ids as $id){
+
+                $query="update agent set deleted = true where id_agent = ".$id;
+                $this->db->query($query);
+
+                $query="delete from returned where agent_id = ".$id;
+                $this->db->query($query);
+
+                $query="delete from borrowed where agent_id = ".$id;
+                $this->db->query($query);
+
+                $query="update transaction_logs set deleted = true where agent_id = ".$id;
+                $this->db->query($query);
+
+                $this->get_all_users();
+
+            }
+        }
     }
 	
 }
