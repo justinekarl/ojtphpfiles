@@ -100,7 +100,7 @@ class Main extends CI_Controller {
 		$this->login();
 	}
 	
-	public function clearUser($idAgent){
+	public function clearUser($idAgent,$admin){
 		$query="update agent set deleted = true where id_agent = ".$idAgent;
 		$this->db->query($query);
 		
@@ -112,8 +112,13 @@ class Main extends CI_Controller {
 		
 		$query="update transaction_logs set deleted = true where agent_id = ".$idAgent;
 		$this->db->query($query);
-		
-		$this->get_all_users();
+
+		if($admin == "admin"){
+            $this->get_all_admin();
+        }else{
+            $this->get_all_users();
+        }
+
 	}
 	
 	

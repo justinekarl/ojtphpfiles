@@ -38,6 +38,7 @@
 		 })
 
  });
+/*
 
 $(function() {
     function reposition() {
@@ -56,6 +57,7 @@ $(function() {
         $('.modal:visible').each(reposition);
     });
 });
+*/
 
 
 function createUser(){
@@ -342,7 +344,7 @@ function deleteAllQR(){
     }
 }
 
-function deleteAllUser(){
+function deleteAllUser(admin){
     var ids = [];
     $('.checkBoxTransction').each(function(){
         if($(this).is(':checked')){
@@ -357,7 +359,11 @@ function deleteAllUser(){
             url: url + 'deleteAllUser/',
             data: form,
             success: function(o) {
-                location.replace(url+"get_all_users");
+                if(admin === 1){
+                    location.replace(url+"get_all_admin");
+                }else{
+                    location.replace(url+"get_all_users");
+                }
             }
         });
     }else{

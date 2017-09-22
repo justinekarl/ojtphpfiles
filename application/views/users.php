@@ -12,7 +12,6 @@
                 <th>Full Name</th>
                 <th>Username</th>
                 <th class="remove">Password</th>
-                <?php if (!$admin):?>
                     <th class="remove">
                         <div class="row">
                             <div class="col-lg-6 text-right">
@@ -23,7 +22,6 @@
                             </div>
                         </div>
                     </th>
-                <?php endif;?>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +48,6 @@
                 <span class="glyphicon glyphicon-zoom-in"></span> Show Password
             </button>
         </td>
-        <?php if (!$admin):?>
           <!--  <td class="remove">
                 <?php /*if($user->not_clear != 1):*/?>
                     <a href='<?php /*echo base_url()."index.php/main/clearUser/".$user->id_agent*/?>' class="btn btn-primary navbar-btn navbar-right">
@@ -67,8 +64,8 @@
                                 <span class="glyphicon glyphicon-trash"></span> Delete
                             </button>
 
-                            <a style="display: none" id="clear_<?php echo $user->id_agent;?>" href='<?php echo base_url()."index.php/main/clearUser/".$user->id_agent?>' >
-
+                            <a style="display: none" id="clear_<?php echo $user->id_agent;?>" href='<?php echo base_url()."index.php/main/clearUser/".$user->id_agent."/".($admin ? "admin" : "user")?>' >
+a
                             </a>
 
                         </div>
@@ -77,7 +74,6 @@
                         </div>
                 <?php endif; ?>
             </td>
-        <?php endif;?>
     </tr>
     <?php  }?>
         </tbody>
@@ -94,13 +90,12 @@
                 <span class="glyphicon glyphicon-arrow-left"></span> Back
             </a>
         </div>
-        <?php if (!$admin):?>
+
         <div class="col-lg-4 text-right">
-            <button type="button" class="btn btn-danger navbar-btn" onclick="showConfirmPopUpAll('Delete Selected Users?','deleteAllUser()');">
+            <button type="button" class="btn btn-danger navbar-btn" onclick='showConfirmPopUpAll("Delete Selected Users?","<?php echo($admin ? "deleteAllUser(1)" : "deleteAllUser(0)")?>");'>
                 <span class="glyphicon glyphicon-trash"></span> Delete Selected
             </button>
         </div>
-        <?php endif;?>
     </div>
 </footer>
 
