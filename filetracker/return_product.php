@@ -56,7 +56,7 @@ if (isset($_POST['borrower']) && isset($_POST['item']) && isset($_POST['agent_id
 		echo json_encode($response);
 	}else{
 		$response["success"] = 1;
-		$response["message"] = "Item is not borrowed.";
+		$response["message"] = "Item has not been borrowed.";
 		error_log(json_encode($response));
 		echo json_encode($response);
 	}

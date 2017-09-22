@@ -18,7 +18,7 @@ if (isset($_POST['discriminator']) && isset($_POST['keyword'])) {
 		if(isset($_POST['all_log'])){
 			$query .=" WHERE (item LIKE '%".$keyword."%') or (agent.full_name LIKE '%".$keyword."%')  ORDER BY date_created DESC";
 		}else{
-			$query .=" WHERE (item LIKE '%".$keyword."%') or (agent.full_name LIKE '%".$keyword."%')  and not deleted ORDER BY date_created DESC";
+			$query .=" WHERE (item LIKE '%".$keyword."%') or (agent.full_name LIKE '%".$keyword."%')  and not transaction_logs.deleted ORDER BY date_created DESC";
 		}
 		error_log($query);
 		$items = array();
