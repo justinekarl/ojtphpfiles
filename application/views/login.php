@@ -25,7 +25,7 @@
                                     <img src="<?php echo base_url('/images/logo.jpg');?>" width="50%" width="50%" alt="No Image"/>
                                 </div>
                                 <div id="div-login-msg">
-                                    <h3>SPCF File Tracking System</h3>
+                                    <h3>Item Tracker</h3>
                                 </div>
                                 <input id="user_name" name="user_name" class="form-control" type="text" placeholder="Username" required>
                                 <input id="password" name="password" class="form-control" type="password" placeholder="Password" required>

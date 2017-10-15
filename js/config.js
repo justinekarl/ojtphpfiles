@@ -19,21 +19,27 @@
 			 }else if(confirmPassword !== newPassword){
                  showPopUp('New Password and Confirm Password not the Same');
              }else{
-			 	formData = [];
-			 	formData.push({name:"data", value: JSON.stringify({oldPassword : oldPassword, newPassword : newPassword, confirmPassword:confirmPassword})})
-				 $.ajax({
-                     type: 'POST',
-                     url: 'updateAuthentication/',
-                     data: formData,
-                     success: function(o) {
-                         o = JSON.parse(o);
-                         if(o.data === true){
-                             showPopUp(o.message);
-						 }else{
-                             showPopUp(o.message);
-						 }
-					 }
-                 });
+			     if(newPassword.length >= 5){
+                     formData = [];
+                     formData.push({name:"data", value: JSON.stringify({oldPassword : oldPassword, newPassword : newPassword, confirmPassword:confirmPassword})})
+                     $.ajax({
+                         type: 'POST',
+                         url: 'updateAuthentication/',
+                         data: formData,
+                         success: function(o) {
+                             o = JSON.parse(o);
+                             if(o.data === true){
+                                 showPopUp(o.message);
+                             }else{
+                                 showPopUp(o.message);
+                             }
+                         }
+                     });
+                 }else{
+                     showPopUp('Authentication should have a minimum of 5 characters');
+                 }
+
+
              }
 		 })
 
@@ -72,21 +78,33 @@ function createUser(){
         return false;
     }
 
-    var formData = $('#form_create_user').serializeArray();
-    $.ajax({
-        type: 'POST',
-        url: 'createUser/',
-        data: formData,
-        success: function(o) {
-            o = JSON.parse(o);
-            if(o.data === true){
-                showPopUp(o.message);
-            }else{
-                showPopUp(o.message);
-            }
-        }
-    });
+    var newPassword = $('#password').val();
+    var confirmPassword = $('#confirm_password').val();
 
+    if(confirmPassword !== newPassword){
+        showPopUp('Password and Confirm Password not the Same');
+        return false;
+    }
+
+    if(newPassword.length >= 5){
+        var formData = $('#form_create_user').serializeArray();
+        $.ajax({
+            type: 'POST',
+            url: 'createUser/',
+            data: formData,
+            success: function(o) {
+                o = JSON.parse(o);
+                if(o.data === true){
+                    showPopUp(o.message);
+                }else{
+                    showPopUp(o.message);
+                }
+            }
+        });
+    }else{
+        showPopUp('Password should have a minimum of 5 characters');
+        return false;
+    }
 }
 
 function showPopUp(message){
@@ -154,7 +172,7 @@ function generatefromtable(tableId,reportName,extraParameter) {
     doc.setFontSize(12);
     doc.text(230, 35, "College Of Engineering");
     doc.setFontSize(8);
-    doc.text(250, 50, "___ Semester ___ S.Y.");
+    doc.text(230, 50, "___ Semester   School Year  ___  -  ___ ");
 
 
     doc.setFontSize(8);
@@ -253,7 +271,7 @@ function generatefromtableQR(tableId,reportName,extraParameter) {
     doc.setFontSize(12);
     doc.text(230, 35, "College Of Engineering");
     doc.setFontSize(8);
-    doc.text(250, 50, "___ Semester ___ S.Y.");
+    doc.text(230, 50, "___ Semester   School Year  ___  -  ___ ");
 
 
     doc.setFontSize(8);

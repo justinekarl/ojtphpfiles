@@ -158,7 +158,7 @@ class Main extends CI_Controller {
 		
 		
 		
-		$query=" select count(*) as checker from agent where deleted = 0 and user_name = '".$userName."' or student_number ='".$studentNumber."'";
+		$query=" select count(*) as checker from agent where deleted = 0 and (user_name = '".$userName."' or student_number ='".$studentNumber."')";
 		$query=$this->db->query($query);
 		$result=$query->result();
 		

@@ -28,6 +28,7 @@ if (isset($_POST['item'])) {
 			$result_check = mysqli_query($link,"select count(*) as checker from qr_codes where (item LIKE '%".$item."%')");
 			$checker = (int) mysqli_fetch_assoc($result_check)["checker"];
 			error_log("checker = ".$checker);
+			error_log("item = ".$item);
 				
 			if($checker == 0) {	
 				$conn = new mysqli($host, $username, $password, $db_name,$port);

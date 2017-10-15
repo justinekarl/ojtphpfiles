@@ -7,7 +7,7 @@ error_log("get returned list");
 if (isset($_POST['agent_id'])) {
 	$agent_id = $_POST['agent_id'];
 	if($agent_id =='all'){
-		$query = "SELECT concat('ITEM: ',returned.item,'\n','Borrower: ',agent.full_name,'\n','Date Borrowed: ',DATE_FORMAT(returned.date_created,'%m-%d-%y %r' )) as item ";
+		$query = "SELECT concat('ITEM: ',returned.item,'\n','Borrower: ',agent.full_name,'\n','Date Returned: ',DATE_FORMAT(returned.date_created,'%m-%d-%y %r' )) as item ";
 		$query .=" FROM returned ";
 		$query .=" left join agent on agent.id_agent = returned.agent_id order by date_created desc";
 		

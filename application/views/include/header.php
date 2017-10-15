@@ -147,7 +147,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title text-center" >
-                    Manage User
+                    Manage Logs
                 </h2>
             </div>
 

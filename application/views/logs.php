@@ -84,7 +84,7 @@
 <footer class="footer">
     <div class="container">
         <div class="col-lg-8">
-            <button type="button" class="btn btn-primary btn-sm" onclick="generatefromtable('logs-table','logs','<?php echo $title; ?>')">
+            <button type="button" class="btn btn-primary btn-sm" onclick="generatefromtable('logs-table','<?php echo $title; ?>','<?php echo $title; ?>')">
                 <span class="glyphicon glyphicon-download-alt"></span> Generate PDF
             </button>
             <a href='<?php echo base_url()."index.php/main/members"?>'class="btn btn-danger navbar-btn">
