@@ -4,10 +4,14 @@ require_once 'db_config.php';
 $response = array();
 
 if(isset($_POST['all_log'])){
-	$query =" SELECT * FROM transaction_logs LEFT JOIN agent ON agent.id_agent = transaction_logs.agent_id ORDER BY date_created DESC";
+	if(isset($_POST['agent_id']) && $_POST['agent_id'] != "all") {
+        $query = " SELECT * FROM transaction_logs LEFT JOIN agent ON agent.id_agent = transaction_logs.agent_id where transaction_logs.agent_id = ".$_POST['agent_id']." ORDER BY date_created DESC ";
+    }else{
+        $query = " SELECT * FROM transaction_logs LEFT JOIN agent ON agent.id_agent = transaction_logs.agent_id ORDER BY date_created DESC";
+	}
 }else{
 	$query =" SELECT * FROM transaction_logs LEFT JOIN agent ON agent.id_agent = transaction_logs.agent_id where not transaction_logs.deleted ORDER BY date_created DESC";
-}
+}error_log($query);
 
 
 $items = array();
@@ -43,3 +47,4 @@ else {
 	echo json_encode($response);
 }
 ?>
+

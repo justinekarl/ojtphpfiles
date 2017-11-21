@@ -3,7 +3,7 @@ require_once 'db_config.php';
 $response = array();
 
 error_log("search===");
-error_log($_POST['keyword'].':'.$_POST['discriminator'].':'.$_POST['admin'].':'.$_POST['agent_id']);
+error_log($_POST['keyword'].': discriminator -> '.$_POST['discriminator'].':'.$_POST['admin'].':'.$_POST['agent_id']);
 error_log("===search");
 if (isset($_POST['discriminator']) && isset($_POST['keyword'])) {
 	
@@ -16,7 +16,12 @@ if (isset($_POST['discriminator']) && isset($_POST['keyword'])) {
 		$query =" SELECT * FROM transaction_logs LEFT JOIN agent ON agent.id_agent = transaction_logs.agent_id ";
 		
 		if(isset($_POST['all_log'])){
-			$query .=" WHERE (item LIKE '%".$keyword."%') or (agent.full_name LIKE '%".$keyword."%')  ORDER BY date_created DESC";
+            if(isset($_POST['user'])){
+                $query .=" WHERE (item LIKE '%".$keyword."%' and transaction_logs.agent_id = ".$agentId.") or (agent.full_name LIKE '%".$keyword."%' and transaction_logs.agent_id = ".$agentId.") ORDER BY date_created DESC";
+            }else{
+                $query .=" WHERE (item LIKE '%".$keyword."%') or (agent.full_name LIKE '%".$keyword."%')  ORDER BY date_created DESC";
+            }
+
 		}else{
 			$query .=" WHERE (item LIKE '%".$keyword."%') or (agent.full_name LIKE '%".$keyword."%')  and not transaction_logs.deleted ORDER BY date_created DESC";
 		}
