@@ -19,7 +19,7 @@ $port="3306"; */
 $host="localhost";
 $username="root";
 $password="1234";
-$db_name="id2796205_filetracker";
+$db_name="ojtmonitoring";
 $port="5432";
 
 $link=mysqli_connect($host, $username, $password, $db_name,$port) or die("unable to connect"); 

@@ -7,8 +7,8 @@ class DB_CONNECT {
 		$host="localhost";
 		$username="root";
 		$password="1234";
-		$db_name="file_tracker";
-		$link=mysqli_connect('localhost', 'root', '', 'file_tracker') or die("unable to connect");
+		$db_name="ojtmonitoring";
+		$link=mysqli_connect('localhost', 'root', '', 'ojtmonitoring') or die("unable to connect");
 	}
 	
     

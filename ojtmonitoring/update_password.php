@@ -25,15 +25,15 @@ if(isset($_POST['new_password']) && isset($_POST['old_password'])){
 		$sql = "update password set password ='".$_POST['new_password']."'";
 		error_log($sql);
 		$conn->query($sql);
-		$response['success'] = 'Updated';
+		$response['success'] = '1';
 	}else{
-		$response['success'] = 'Incorrect Old Password';
+		$response['success'] = '0';
 	}
 	error_log(json_encode($response));
 	echo json_encode($response);
 	
 }else{
-	$response['success'] = 'Update Failed';
+	$response['success'] = '0';
 	echo json_encode($response);
 }
 
