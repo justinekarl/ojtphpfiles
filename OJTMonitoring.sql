@@ -149,3 +149,8 @@ ALTER TABLE user ADD COLUMN company_id int;
 ALTER TABLE student_ojt_attendance_log ADD COLUMN agent_id int;
 ALTER TABLE student_ojt_attendance_log ADD COLUMN finger_print_scanner BOOLEAN DEFAULT FALSE;
 
+
+
+
+
+
