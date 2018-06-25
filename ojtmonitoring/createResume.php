@@ -175,7 +175,7 @@ if($checker === 0){
     $result=mysqli_query($link,$reference3Qry);
     error_log("INSERTED RESULT".$result);
 
-
+    $response['success'] = 1;
 	echo json_encode($response);
 
 

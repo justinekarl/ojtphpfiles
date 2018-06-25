@@ -8,11 +8,14 @@ error_log("get students by company list");
 if (isset($_POST['agentid'])) {
     $agent_id = $_POST['agentid'];
     
-    $queryOjt = " SELECT CONCAT('student_name~',COALESCE(b.name,'')),CONCAT('college~',COALESCE(b.college,'')),CONCAT('student_id~',b.id),CONCAT('accepted~',accepted)
+    $queryOjt = " SELECT CONCAT('student_name~',COALESCE(b.name,'')),CONCAT('college~',COALESCE(b.college,'')),CONCAT('student_id~',rd.id),CONCAT('accepted~',accepted)
 					FROM company_ojt a
-					LEFT JOIN user b ON a.user_id = b.id
+					LEFT JOIN resume_details rd ON rd.id = a.user_id 
+					LEFT JOIN user b ON rd.user_id = b.id
 
-					WHERE company_id= ".$agent_id."
+					WHERE a.company_id= ".$agent_id."
+					AND accounttype = 1
+					AND rd.approved
 					ORDER BY 1,2,3,4
 		    ";
 

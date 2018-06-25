@@ -9,7 +9,7 @@ if(isset($_POST['agentId'])){
 
 
 
-	$mainQry = "SELECT CONCAT('student_name~',COALESCE(b.name,'')) as student_name,CONCAT('company_name~',COALESCE(c.name,'')) as company_name,CONCAT('login_date~',COALESCE(a.login_date,'')),CONCAT('logout_date~',COALESCE(a.logout_date,''))
+	$mainQry = "SELECT CONCAT('student_name~',COALESCE(b.name,'')) as student_name,CONCAT('company_name~',COALESCE(c.name,'')) as company_name,CONCAT('login_date~',COALESCE(a.login_date,'')),CONCAT('logout_date~',COALESCE(a.logout_date,'')), CONCAT('from_finger_print~',CASE WHEN finger_print_scanner THEN 'Y' ELSE 'N' END)
 					FROM student_ojt_attendance_log a
 				LEFT JOIN user b ON a.student_id = b.id AND b.accounttype = 1
 				LEFT JOIN user c ON c.id = a.company_id AND c.accounttype = 3

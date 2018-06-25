@@ -111,7 +111,7 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
 
         if($accounttype == 4) {
 
-            $coorQry = "INSERT INTO user(username,password,name,phonenumber,accounttype,address,company_name,approved) VALUES('$user_name', '$password','$full_name','$phonenumber',4,'$address','$companyName',true)";
+            $coorQry = "INSERT INTO user(username,password,name,phonenumber,accounttype,address,company_name) VALUES('$user_name', '$password','$full_name','$phonenumber',4,'$address','$companyName')";
             $result=mysqli_query($link,$coorQry);
 
             

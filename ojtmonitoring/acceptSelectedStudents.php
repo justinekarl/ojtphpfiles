@@ -21,7 +21,7 @@ foreach ($selIds as $key => $studentId) {
 
 	$studId = intval($studentId);
 
-	$updateSelectedStudentQry = "UPDATE company_ojt SET accepted_date = current_date , accepted = TRUE , accepted_by_company_id = '$agentId' WHERE user_id = '$studId' AND  company_id = '$agentId' AND accepted = false ";
+	$updateSelectedStudentQry = "UPDATE company_ojt SET accepted_date = current_date , accepted = TRUE , accepted_by_company_id = '$agentId' WHERE user_id = ".$studId." AND  company_id = ".$agentId." AND accepted = false ";
 
 	error_log($updateSelectedStudentQry);
 

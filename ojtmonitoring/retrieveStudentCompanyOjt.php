@@ -7,13 +7,13 @@ error_log("get ojt pending list");
 if (isset($_POST['agentid'])) {
     $agent_id = $_POST['agentid'];
     
-    $queryOjt = "SELECT CONCAT('company_id~',b.user_id),CONCAT('company_name~',COALESCE(d.name,'')) as company_name,CONCAT('college~',COALESCE(e.college,'')),CONCAT('resume_id~',c.id),CONCAT('student_name~',COALESCE(e.name,'')) as student_name,CONCAT('phone~',COALESCE(e.phonenumber,'')),CONCAT('email~',COALESCE(e.email,'')),CONCAT('approved~',c.approved), CONCAT('selected_company_id~',coalesce(co.company_id,0))
+    $queryOjt = "SELECT distinct CONCAT('company_id~',b.user_id),CONCAT('company_name~',COALESCE(d.name,'')) as company_name,CONCAT('college~',COALESCE(e.college,'')),CONCAT('resume_id~',c.id),CONCAT('student_name~',COALESCE(e.name,'')) as student_name,CONCAT('phone~',COALESCE(e.phonenumber,'')),CONCAT('email~',COALESCE(e.email,'')),CONCAT('approved~',c.approved), CONCAT('selected_company_id~',coalesce(co.accepted_by_company_id,0))
 				FROM student_company_selected a
 				LEFT JOIN company_profile b ON a.company_id = b.id
 				LEFT JOIN resume_details c ON a.user_id = c.user_id
 				LEFT JOIN user d ON d.id = b.user_id
 				LEFT JOIN user e ON e.id = c.user_id
-				LEFT JOIN company_ojt co ON co.company_id = d.id
+				LEFT JOIN company_ojt co ON co.user_id = c.user_id
 				WHERE 1=1
 		    ";
 
