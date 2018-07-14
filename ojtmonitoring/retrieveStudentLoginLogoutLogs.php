@@ -35,10 +35,18 @@ if(isset($_POST['agentId'])){
 
 
 	if(isset($_POST['from']) && isset($_POST['thru'])){
-		$mainQry = $mainQry ." AND cast(login_date as date) >= '".$_POST['from']."' AND cast(logout_date as date) <= '".$_POST['thru']."'  ";	
+		$mainQry = $mainQry ." AND (cast(login_date as date) >= '".$_POST['from']."' AND cast(logout_date as date) <= '".$_POST['thru']."')  ";	
 	}
 
 
+	if(isset($_POST['startTime']) && isset($_POST['endTime'])){
+		error_log("START TIME".print_r($_POST['startTime'],true));
+		error_log("START TIME".print_r($_POST['endTime'],true));
+		error_log("START TIME".print_r(date_format(date_create($_POST['startTime']),"H:i"),true));
+		error_log("END TIME".print_r(date_format(date_create($_POST['endTime']),"H:i"),true));
+
+		$mainQry = $mainQry ." AND (CAST(`login_date` As time) >= '".$_POST['startTime']."' AND CAST(`logout_date` as time) <= '".$_POST['endTime']."' ) ";
+	}
 
 	if(isset($_POST['isCompany'])){
 		$mainQry = $mainQry ." AND c.id = ".$agentId;

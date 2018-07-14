@@ -14,8 +14,44 @@ $companyName = $_POST['companyName'];
 
 error_log($selectedStudentsToAcceptIds);
 
+$selectedStudentsToAccept = json_decode($selectedStudentsToAcceptIds);
 
-$selIds = explode(",", $selectedStudentsToAcceptIds);
+
+foreach ($selectedStudentsToAccept as $key => $value) {
+		error_log("Student ID -->".$key);
+		error_log("Approved -->".$value);
+
+		$studId = intval($key);
+		$approved_val =intval($value."");
+
+
+
+	$updateSelectedStudentQry = "UPDATE company_ojt SET accepted_date = current_date , accepted = ".$approved_val." , accepted_by_company_id = '$agentId' WHERE user_id = ".$studId." AND  company_id = ".$agentId." ";
+
+	error_log($updateSelectedStudentQry);
+
+	$result=mysqli_query($link,
+                $updateSelectedStudentQry);
+
+	error_log("update selected accepted info ".print_r($result,true));	
+
+	if($result == 1 && $approved_val == true){
+		$insertNotifQry = "INSERT INTO student_notif(user_id,message) VALUES ('$studId','Congratulations! You were accepted as an OJT for Company : ".$companyName." ' )";
+
+		error_log($insertNotifQry);
+
+		$result1=mysqli_query($link,
+                $insertNotifQry);
+
+		error_log("insert student notif ".print_r($result1,true));
+	}
+
+
+}
+
+
+
+/**$selIds = explode(",", $selectedStudentsToAcceptIds);
 
 foreach ($selIds as $key => $studentId) {
 
@@ -44,7 +80,7 @@ foreach ($selIds as $key => $studentId) {
 
 
 
-	}
+	}*/
 
 
 	$response['success'] = 1;

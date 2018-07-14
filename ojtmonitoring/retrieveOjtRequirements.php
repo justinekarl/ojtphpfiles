@@ -31,6 +31,48 @@ if (isset($_POST['agentid'])) {
         $result->free();
     }
 
+
+
+    $coursesSQL = " select * from course_look_up order by name";
+
+     $courses = [];
+     error_log($coursesSQL);
+
+      $queryResults = mysqli_fetch_all(mysqli_query($link,$coursesSQL));
+
+       if(sizeof($queryResults) > 0){
+            for ($ctr = 0; $ctr < sizeof($queryResults); $ctr++){
+                array_push($courses, $queryResults[$ctr]);
+            }
+       }
+
+         error_log("6------>".json_encode($courses)."<------");
+        if(sizeof($courses) > 0){
+            $response["courses"] = $courses;
+            
+        }
+
+
+    $selectedCoursesSQL = " select course_id from company_course_to_accept WHERE company_id = ".$_POST['agentid'];
+
+    $coursesSelected = [];
+     error_log($selectedCoursesSQL);
+
+      $queryResults = mysqli_fetch_all(mysqli_query($link,$selectedCoursesSQL));
+
+       if(sizeof($queryResults) > 0){
+            for ($ctr = 0; $ctr < sizeof($queryResults); $ctr++){
+                array_push($coursesSelected, $queryResults[$ctr]);
+            }
+       }
+
+         error_log("6------>".json_encode($coursesSelected)."<------");
+        if(sizeof($coursesSelected) > 0){
+            $response["courses_selected"] = $coursesSelected;
+            
+        }
+
+
     if($checker > 0){
         $response["success"] = 1;
         error_log(json_encode($response));

@@ -28,7 +28,7 @@ if (isset($_POST['agentid'])) {
         $result->free();
     }
 
-    $queryOjt = " SELECT CONCAT('date_created~',COALESCE(CAST(log_date_created as date),'')),CONCAT('message~',COALESCE(message,'')) FROM student_notif WHERE user_id = '$agent_id' ORDER BY log_date_created DESC ";
+    $queryOjt = " SELECT CONCAT('date_created~',COALESCE(CAST(log_date_created as date),'')),CONCAT('message~',COALESCE(message,'')) FROM student_notif WHERE user_id = (SELECT id FROM resume_details WHERE user_id = '$agent_id') ORDER BY log_date_created DESC ";
 
 
 	 $items = [];

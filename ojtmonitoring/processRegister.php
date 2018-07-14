@@ -20,6 +20,9 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
         $college = $_POST['college'];
         $address = $_POST['address'];
         $email = $_POST['email'];
+	    $gender = $_POST['gender'];
+        $ojthours = $_POST['ojtHours'];
+        $course   = $_POST['course'];
     }
 
     if($accounttype == 2){
@@ -53,12 +56,13 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
     $insertedId = 0;
 
     error_log("accounttype".$accounttype);
+    error_log("existing".$checker);
 
 
     if($checker == 0){
 
         if($accounttype == 1) {
-            $studentQry = "INSERT INTO user(username,password,studentnumber,name,college,address,phonenumber,accounttype,email) VALUES('$user_name', '$password','$student_number','$full_name','$college','$address','$phonenumber','$accounttype','$email')";
+            $studentQry = "INSERT INTO user(username,password,studentnumber,name,college,address,phonenumber,accounttype,email,gender,ojt_hours,course) VALUES('$user_name', '$password','$student_number','$full_name','$college','$address','$phonenumber','$accounttype','$email','$gender','$ojthours','$course')";
             $result=mysqli_query($link,
                 $studentQry);
 
@@ -102,6 +106,27 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
                                  ";
 
             $result=mysqli_query($link,$companyProfileQry);
+
+             $coursesIds = $_POST['courseIds'];
+
+            error_log($coursesIds);
+
+
+            $selCourseIds = explode(",", $coursesIds);
+
+            foreach ($selCourseIds as $key => $courseId) {
+
+                $courseId = intval($courseId);
+
+                $insertSelectedCourseQry = "INSERT INTO company_course_to_accept(course_id,company_id) VALUES ('$courseId','$id')";
+
+                error_log($insertSelectedCourseQry);
+
+                $result=mysqli_query($link,
+                            $insertSelectedCourseQry);
+
+                error_log("insert selected courses info ".print_r($result,true));   
+            }
 
             $response['message'] = "Successfully created Company Account";
             $response['success'] = 1;
@@ -154,6 +179,9 @@ if (isset($_POST['user_name']) && isset($_POST['password'])) {
         }
 
 
+    }else{
+            $response['message'] = "Username already Exist!";
+            $response['success'] = 0;
     }
 
     

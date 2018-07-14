@@ -13,7 +13,7 @@ if (isset($_POST['agentId'])) {
 	error_log("log in -".$agentId);
 
 
-	$basicInfoQry = "SELECT name,address,phonenumber,email FROM user where id = ".$agentId;
+	$basicInfoQry = "SELECT name,address,phonenumber,email,gender FROM user where id = ".$agentId;
 
 	error_log($basicInfoQry);
 

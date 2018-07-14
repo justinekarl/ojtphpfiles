@@ -23,11 +23,12 @@ if (isset($_POST['agentid'])) {
      $response["selected_company_count"] = $selectedCount;
 
 
-       $query = "select concat('id~',b.id),concat('company_name~',coalesce(name,'')),Concat('address~',coalesce(address,'')),Concat('phone_number~',coalesce(phonenumber,'')),Concat('company_type~',coalesce(department,'')),concat('description~', coalesce(description,'')),concat('moa_certified,', CASE WHEN moa_certified = 1 THEN 'Yes' ELSE 'NO' END),concat('will_provide_allowance,',case when does_provide_allowance = 1 THEN 'Yes' ELSE 'NO' END),CONCAT('allowance,',coalesce(allowance,'')),concat('ojt_needed,',coalesce(ojt_number,'')),concat('college_needed,' ,coalesce(b.college,'')),concat('selected~',(c.id is not null and c.id > 0)),concat('accepted~',(d.id is not null and d.id > 0)) from user a left join company_profile b on a.id = b.user_id 
+       $query = "select concat('id~',b.id),concat('company_name~',coalesce(name,'')),Concat('address~',coalesce(address,'')),Concat('phone_number~',coalesce(phonenumber,'')),Concat('company_type~',coalesce(department,'')),concat('description~', coalesce(description,'')),concat('moa_certified,', CASE WHEN moa_certified = 1 THEN 'Yes' ELSE 'NO' END),concat('will_provide_allowance,',case when does_provide_allowance = 1 THEN 'Yes' ELSE 'NO' END),CONCAT('allowance,',coalesce(allowance,'')),concat('ojt_needed,',coalesce(ojt_number,'')),concat('college_needed,' ,coalesce(b.college,'')),concat('selected~',(c.id is not null and c.id > 0)),concat('accepted~',(d.id is not null and d.id > 0)),concat('rating~',a.rating) from user a left join company_profile b on a.id = b.user_id 
             left join student_company_selected c ON c.company_id = b.id AND c.user_id = '".$agent_id."'
             left join company_ojt d ON d.user_id = c.user_id AND d.company_id = a.id
-       where accounttype = 3 and trim(b.college) IN (SElECT trim(college) FROM user where id = '".$agent_id."')
-            
+
+       where accounttype = 3 and a.id IN (SELECT company_id FROM company_course_to_accept WHERE course_id IN (SELECT id FROM course_look_up WHERE name IN (SELECT trim(course) FROM user where id = '".$agent_id."')))
+            ORDER BY a.rating DESC
 
        ";
 

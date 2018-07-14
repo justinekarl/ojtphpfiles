@@ -9,6 +9,7 @@ $name = $_POST['name'];
 $address = $_POST['address'];
 $phone_number = $_POST['phoneNumber'];
 $email = $_POST['email'];
+$gender = $_POST['gender'];
 $agentId = $_POST['agent_id'];
 $resumeeDetailsId= $_POST['resume_details_id'];
 
@@ -72,7 +73,7 @@ $checker = (int) mysqli_fetch_assoc($result_checker)["cnt"];
 error_log("createResume.php check_result".print_r($result_checker,true));
 
 
-$updateQueryStudentInfoQry = "UPDATE user SET name = '".$name."', address = '".$address."' , phonenumber = '".$phone_number."' ,  email = '".$email."' WHERE id = ".$agentId;
+$updateQueryStudentInfoQry = "UPDATE user SET name = '".$name."', address = '".$address."' , phonenumber = '".$phone_number."' ,  email = '".$email."', gender = '".$_POST['gender']."' WHERE id = ".$agentId;
 
 error_log($updateQueryStudentInfoQry);
 
